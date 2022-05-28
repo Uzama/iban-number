@@ -19,4 +19,18 @@ func NewHandler() handler {
 
 func (h handler) ValidateIBANNumber(w http.ResponseWriter, r *http.Request) {
 
+	ibanNumber := r.FormValue("iban_number")
+
+	if ibanNumber == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("iban number not given"))
+		return
+	}
+
+	isValid := h.validator.Validate(ibanNumber)
+
+	response := Respose{IsValid: isValid}
+
+	w.WriteHeader(http.StatusOK)
+	w.Write(response.Encode())
 }
