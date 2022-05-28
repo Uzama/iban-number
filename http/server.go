@@ -8,9 +8,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// start a http server at 0.0.0.0:8080
 func StartServer(router *mux.Router) {
+
 	address := "0.0.0.0:8080"
 
+	// create a server
 	server := &http.Server{
 		Addr:         address,
 		WriteTimeout: time.Second * 10,
@@ -19,6 +22,7 @@ func StartServer(router *mux.Router) {
 		Handler:      router,
 	}
 
+	// run the server without blocking
 	go func() {
 		err := server.ListenAndServe()
 		if err != nil {
