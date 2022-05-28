@@ -113,8 +113,10 @@ If the remainder is 1, the check digit test is passed and the IBAN might be vali
 */
 func (v validator) Validate(iban string) (bool, error) {
 
+	// remove spaces if found
 	iban = v.removeSpaces(iban)
 
+	// check iban length
 	isMatched, err := v.checkIBANLength(iban)
 	if err != nil {
 		return false, err
@@ -124,8 +126,10 @@ func (v validator) Validate(iban string) (bool, error) {
 		return false, nil
 	}
 
+	// move the four initial characters to the end of the string
 	iban = v.reArrangeString(iban)
 
+	// expand the string by replacing alphabatic with the two digit number
 	iban = v.expandString(iban)
 
 	reminder := v.getRemainder(iban)
@@ -147,6 +151,7 @@ func (v validator) removeSpaces(iban string) string {
 func (v validator) checkIBANLength(iban string) (bool, error) {
 
 	countryCode := iban[0:2]
+
 	ibanLength, ok := v.ibanLength[countryCode]
 	if !ok {
 		return false, errors.New("information not exists for given country code")
@@ -172,12 +177,16 @@ func (v validator) expandString(iban string) string {
 
 	for _, char := range iban {
 
+		// change to uppercase
 		char = unicode.ToUpper(char)
 
+		// check whether character is a alphabatic
 		if 'A' <= char && char <= 'Z' {
 
+			// get the two digit of the character
 			digit := v.getTwoDigit(char)
 
+			// replace the alphabatic with the two digit number
 			expendedString += strconv.Itoa(digit)
 			continue
 		}
@@ -190,13 +199,16 @@ func (v validator) expandString(iban string) string {
 
 func (v validator) getTwoDigit(char rune) int {
 
+	// find the offset to start from 10
 	offset := int('A') - 10
 
 	return int(char) - offset
 }
 
+// get reminder for given numeric string value
 func (v validator) getRemainder(str string) int {
 
+	// use big int to process large numbers
 	num, _ := new(big.Int).SetString(str, 10)
 
 	reminder := num.Mod(num, big.NewInt(97))
