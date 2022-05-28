@@ -1,5 +1,5 @@
 package validator
 
 type Validator interface {
-	Validate(iban string) bool
+	Validate(iban string) (bool, error)
 }

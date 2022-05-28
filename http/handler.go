@@ -27,7 +27,12 @@ func (h handler) ValidateIBANNumber(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	isValid := h.validator.Validate(ibanNumber)
+	isValid, err := h.validator.Validate(ibanNumber)
+	if err != nil {
+		w.WriteHeader(http.StatusUnprocessableEntity)
+		w.Write([]byte(err.Error()))
+		return
+	}
 
 	response := Respose{IsValid: isValid}
 
