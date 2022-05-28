@@ -9,7 +9,9 @@ import (
 func InitRouter() *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("validate", nil).Methods(http.MethodGet)
+	handler := NewHandler()
+
+	r.HandleFunc("/validate", handler.ValidateIBANNumber).Methods(http.MethodGet)
 
 	return r
 }
