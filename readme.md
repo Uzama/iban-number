@@ -3,10 +3,10 @@
 A REST API backend application to validates whether a given IBAN number is valid or not.
 
 ## Run Buid Test with makefile
-- make build: build the binary according to source OS (linux or macos)
-- make run: run the built binary
-- make test: run the unit test and display the coverage
-- make clean: clean the built diles
+- ```make build```: build the binary according to source OS (linux or macos)
+- ```make run```: run the built binary
+- ```make test```: run the unit test and display the coverage
+- ```make clean```: clean the built files
 
 ## API Reference
 
