@@ -37,6 +37,8 @@ func TestValidator(t *testing.T) {
 	for _, testCase := range tableTest {
 		t.Run(testCase.name, func(t *testing.T) {
 			result, err := v.Validate(testCase.ibanNumber)
+
+			// check the error whether what we expect
 			if err != nil && testCase.expectedError == nil {
 				t.Errorf("expected %v, but got %v", testCase.expectedError, err)
 			}
@@ -51,6 +53,7 @@ func TestValidator(t *testing.T) {
 				}
 			}
 
+			// check the result whether what we expect
 			if result != testCase.expectedOutput {
 				t.Errorf("expected %v, but got %v", testCase.expectedOutput, result)
 			}
