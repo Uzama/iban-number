@@ -8,6 +8,10 @@ A REST API backend application to validates whether a given IBAN number is valid
 - ```make test```: run the unit test and display the coverage
 - ```make clean```: clean the built files
 
+## Build and run with docker
+- buid the image with ```docker build -t iban-number -f Dockerfile .```
+- run the container in detach mode with ```docker run -d -p 8080:8080 iban-number```
+
 ## API Reference
 
 ```http
