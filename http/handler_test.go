@@ -50,10 +50,10 @@ func TestValidateIBANNumber(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			// We create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
+			// we create a ResponseRecorder (which satisfies http.ResponseWriter) to record the response.
 			rr := httptest.NewRecorder()
 
-			// Our handlers satisfy http.Handler, so we can call their ServeHTTP method
+			// our handlers satisfy http.Handler, so we can call their ServeHTTP method
 			// directly and pass in our Request and ResponseRecorder.
 			h.ValidateIBANNumber(rr, req)
 
@@ -62,7 +62,7 @@ func TestValidateIBANNumber(t *testing.T) {
 				t.Errorf("expected %v, but got %v", testCase.expectedStatusCode, rr.Code)
 			}
 
-			// Check the response body is what we expect.
+			// check the response body is what we expect.
 			if rr.Body.String() != testCase.expectedOutput {
 				t.Errorf("expected %v, but got %v", testCase.expectedOutput, rr.Body.String())
 			}
